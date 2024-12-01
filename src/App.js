@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { NavbarComponents } from './components';
+import Login from './pages/Login';  
+import Home from './pages/Home';  
+import Profile from './pages/Profile';  
+import Success from './pages/Success';  
 
-function App() {
+const AppWrapper = () => {
+  const location = useLocation();  
+
+  const shouldShowNavbar = location.pathname !== '/';
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {shouldShowNavbar && <NavbarComponents />}  
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/success" element={<Success />} />
+      </Routes>
+    </>
   );
-}
+};
 
-export default App;
+export default class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <AppWrapper />
+      </BrowserRouter>
+    );
+  }
+}
