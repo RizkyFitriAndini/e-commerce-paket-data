@@ -1,9 +1,10 @@
 import React from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';  
+import { Link, useNavigate, useLocation } from 'react-router-dom';  
 
 const NavbarComponents = () => {
     const navigate = useNavigate();  
+    const location = useLocation();
 
     const handleLogout = () => {
         localStorage.removeItem('user');  
@@ -23,8 +24,18 @@ const NavbarComponents = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-between align-items-center">
                 <Nav className="me-auto">
-                    <Link to="/home" className="nav-link">Home</Link>
-                    <Link to="/profile" className="nav-link">Profile</Link>
+                <Link 
+                        to="/home" 
+                        className={`nav-link ${location.pathname === '/home' ? 'active' : ''}`}
+                    >
+                        Home
+                    </Link>
+                    <Link 
+                        to="/profile" 
+                        className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`}
+                    >
+                        Profile
+                    </Link>
                 </Nav>
                 <Button 
                     variant="danger" 
